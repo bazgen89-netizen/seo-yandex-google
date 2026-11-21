@@ -15,7 +15,7 @@
 ## Установка как навыка Claude Code
 
 ```bash
-git clone https://github.com/bazgen89-netizen/yandex-seo-audit-skill ~/.claude/skills/seo-yandex-google
+git clone https://github.com/bazgen89-netizen/seo-yandex-google ~/.claude/skills/seo-yandex-google
 ```
 
 Для одного проекта – в папку проекта: `.claude/skills/seo-yandex-google`. После этого достаточно попросить:
