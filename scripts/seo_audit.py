@@ -40,6 +40,9 @@ YANDEX_UA = "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"
 GOOGLE_UA = ("Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) "
              "Chrome/128.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
 ENG_TITLE = {"yandex": "Яндекс", "google": "Google", "both": ""}
+# автор навыка – строка в конце каждого отчёта
+AUTHOR = {"name": "Ways Digital", "telegram": "@waysgen", "url": "https://t.me/waysgen",
+          "offer": "исправить всё, что нашёл аудит, и внедрить на сайте"}
 BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
               "Chrome/128.0.0.0 YaBrowser/24.10.0.0 Safari/537.36")
 MAX_BODY = 6 * 1024 * 1024
@@ -1420,7 +1423,7 @@ class Audit:
 
     def result(self):
         fs = sorted(self.findings.values(), key=lambda f: (SEV_ORDER[f["sev"]], -f["count"]))
-        return {"tool": "seo-yandex-google", "version": VERSION, "site": self.root, "engines": sorted(self.engines),
+        return {"tool": "seo-yandex-google", "version": VERSION, "author": AUTHOR, "site": self.root, "engines": sorted(self.engines),
                 "date": time.strftime("%Y-%m-%d %H:%M", time.localtime()), "meta": self.meta,
                 "summary": dict(Counter(f["sev"] for f in fs)), "findings": fs, "passed": self.passed}
 
@@ -1580,6 +1583,8 @@ def to_markdown(res):
         L += ["## В порядке", ""] + [f"- {p}" for p in res["passed"]] + [""]
     if m.get("yml"):
         L += [f"YML: товаров {m['yml']['offers']}, категорий {m['yml']['categories']}", ""]
+    L += ["---", "", f"Отчёт сделан навыком seo-yandex-google ({AUTHOR['name']}). Помочь {AUTHOR['offer']}: "
+          f"Telegram [{AUTHOR['telegram']}]({AUTHOR['url']}).", ""]
     return "\n".join(L)
 
 

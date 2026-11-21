@@ -138,6 +138,8 @@ class AuditTest(unittest.TestCase):
     def test_markdown(self):
         md = yaudit.to_markdown(self.res)
         self.assertIn("# SEO-аудит для Яндекса и Google", md)
+        self.assertIn("Ways Digital", md)
+        self.assertIn("t.me/waysgen", md)
         self.assertNotIn(chr(0x2014), md)  # длинное тире в отчёте не используется
 
 
